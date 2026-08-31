@@ -12,8 +12,8 @@ YEAR = "2026"
 # Hardcoded absolute bypass key to completely override the secrets console panel
 API_KEY = "axZo2s2WvuWpx0OmPlzJYzIeFbox"
 
-# Rebuilt path parameters to match explicit MFL URL routing protocol
-BASE_URL = f"https://myfantasyleague.com{YEAR}/export"
+# Fixed connection paths mapped securely to clean MFL endpoints
+BASE_URL = f"https://api.myfantasyleague.com/{YEAR}/export"
 HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
 
 # --- 2. THE CORRECTED NON-LINEAR MATH MATRIX ---

@@ -9,11 +9,14 @@ st.set_page_config(page_title="U Mad Bro? Analytics Dashboard", layout="wide")
 LEAGUE_ID = "65820"
 YEAR = "2026"
 
-# FIX #4: Secret keys completely decoupled from source code into safe st.secrets array
-API_KEY = st.secrets.get("MFL_API_KEY", "axZo2s2WvuWpx0OmPlzJYzIeFbox")
+# Forced absolute fallback string bypass
+API_KEY = "axZo2s2WvuWpx0OmPlzJYzIeFbox"
 
-# FIX #3: Rebuilt path parameters to match explicit MFL URL routing protocol
+# Rebuilt path parameters to match explicit MFL URL routing protocol
 BASE_URL = f"https://api.myfantasyleague.com/{YEAR}/export"
+HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
+
+# --- 2. THE CORRECTED NON-LINEAR MATH MATRIX ---
 
 HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
 

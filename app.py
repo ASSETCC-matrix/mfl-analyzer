@@ -202,4 +202,3 @@ else:
         fa_ids = [str(fa.get('id')) for fa in fa_container if fa and 'id' in fa]
         waiver_board = df[df['id'].isin(fa_ids)].sort_values(by="True_Milestone_Score", ascending=False).reset_index(drop=True)
         st.dataframe(waiver_board[['name', 'position', 'team', 'True_Milestone_Score']], use_container_width=True)
-

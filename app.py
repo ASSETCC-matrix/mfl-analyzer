@@ -3,28 +3,24 @@ import requests
 import pandas as pd
 import math
 
-# --- 1. SECURE CREDENTIALS & INITIAL PLATFORM CONFIG ---
+# --- 1. CONFIGURATION & CORE VARIABLES ---
 st.set_page_config(page_title="U Mad Bro? Analytics Dashboard", layout="wide")
 
 LEAGUE_ID = "65820"
 YEAR = "2026"
 
-# Forced absolute fallback string bypass
+# Hardcoded absolute bypass key to completely override the secrets console panel
 API_KEY = "axZo2s2WvuWpx0OmPlzJYzIeFbox"
 
 # Rebuilt path parameters to match explicit MFL URL routing protocol
-BASE_URL = f"https://api.myfantasyleague.com/{YEAR}/export"
-HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
-
-# --- 2. THE CORRECTED NON-LINEAR MATH MATRIX ---
-
+BASE_URL = f"https://myfantasyleague.com{YEAR}/export"
 HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
 
 # --- 2. THE CORRECTED NON-LINEAR MATH MATRIX ---
 def calculate_true_milestone_score(row):
     """
     Line-by-line verification translation of the 'U Mad Bro?' custom rules.
-    FIX #1 & #2: Converts full-season projections down to per-game steps,
+    Converts full-season projections down to per-game steps,
     processes strict range clamping, and sums up across active game periods.
     """
     points_pg = 0.0
@@ -55,8 +51,7 @@ def calculate_true_milestone_score(row):
         if pos == 'QB' and completions_pg >= 15:
             points_pg += 3.0 + math.floor((completions_pg - 15) / 5) * 3.0
 
-        # 5. Distance-Based Touchdowns
-        # FIX #2: Replaces arbitrary weights with fixed 6.8 pt constant based on distribution
+        # 5. Distance-Based Touchdowns (Constant touchdown distance distribution value)
         points_pg += off_tds_pg * 6.8
 
         # 6. Two-Point Conversions (2.0 points each)
@@ -112,7 +107,6 @@ def build_blended_master_dataframe():
     sources = {'rotowire': 0.45, '4for4': 0.35, 'rotoballer': 0.10, 'fantasyguru': 0.10}
     
     player_payload = fetch_mfl_payload('players')
-    # FIX: Handles dynamic schema depth nesting lists safely
     raw_play = player_payload.get('players', {}).get('player', [])
     if not isinstance(raw_play, list): raw_play = [raw_play]
     
@@ -175,13 +169,12 @@ st.markdown("---")
 df = build_blended_master_dataframe()
 
 if df.empty:
-    st.warning("Awaiting projection payloads from MFL server networks. Confirm your st.secrets parameters.")
+    st.warning("Awaiting projection payloads from MFL server networks. Confirm your repository configurations.")
 else:
-    module = st.sidebar.radio("Navigate Control Systems", ["Live Draft Analyzer", "Waiver Wire Optimizer", "Weekly Lineup Analyzer"])
+    module = st.sidebar.radio("Navigate Control Systems", ["Live Draft Analyzer", "Waiver Wire Optimizer"])
 
     # Synchronize and parse draft tracking status lists
     draft_payload = fetch_mfl_payload('draftResults')
-    # FIX: Clean schema tree parsing navigation
     draft_container = draft_payload.get('draftResults', {}).get('draftPick', [])
     if not isinstance(draft_container, list): draft_container = [draft_container]
     
@@ -199,7 +192,6 @@ else:
     elif module == "Waiver Wire Optimizer":
         st.header("🔍 Free Agent Waiver Wire Tracker")
         fa_payload = fetch_mfl_payload('freeAgents')
-        # FIX: Deep navigation loop tracking
         fa_container = fa_payload.get('freeAgents', {}).get('player', [])
         if not isinstance(fa_container, list): fa_container = [fa_container]
         

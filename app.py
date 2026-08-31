@@ -13,7 +13,7 @@ YEAR = "2026"
 API_KEY = st.secrets.get("MFL_API_KEY", "axZo2s2WvuWpx0OmPlzJYzIeFbox")
 
 # FIX #3: Rebuilt path parameters to match explicit MFL URL routing protocol
-BASE_URL = f"https://myfantasyleague.com{YEAR}/export"
+BASE_URL = f"https://myfantasyleague.com/{YEAR}/export"
 HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
 
 # --- 2. THE CORRECTED NON-LINEAR MATH MATRIX ---

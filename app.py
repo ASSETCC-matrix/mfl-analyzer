@@ -13,7 +13,7 @@ YEAR = "2026"
 API_KEY = "axZo2s2WvuWpx0OmPlzJYzIeFbox"
 
 # Fixed connection paths mapped securely to clean MFL endpoints
-BASE_URL = f"https://api.myfantasyleague.com/{YEAR}/export"
+BASE_URL = f"https://myfantasyleague.com{YEAR}/export"
 HEADERS = {"User-Agent": f"MFLCustomMilestoneEngine/1.0 (League {LEAGUE_ID})"}
 
 # --- 2. THE CORRECTED NON-LINEAR MATH MATRIX ---
@@ -103,8 +103,8 @@ def fetch_mfl_payload(type_param, extra_params=None):
     return {}
 
 def build_blended_master_dataframe():
-    # Finalized 45/35/10/10 custom blend matrix allocations
-    sources = {'rotowire': 0.45, '4for4': 0.35, 'rotoballer': 0.10, 'fantasyguru': 0.10}
+    # TEMPORARY FALLBACK CHANGE: Standardizes pool to active site base projections
+    sources = {'mfl': 1.0}
     
     player_payload = fetch_mfl_payload('players')
     raw_play = player_payload.get('players', {}).get('player', [])
